@@ -1,0 +1,12 @@
+{
+  "name": "dialectica",
+  "version": "1.0.0",
+  "description": "Dialectica debate orchestrator MVP",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

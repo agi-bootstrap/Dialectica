@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dialectica</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">Dialectica</div>
+    </header>
+    <main class="main">
+      <section class="input-section">
+        <form id="debate-form" class="debate-form" autocomplete="off">
+          <label class="visually-hidden" for="topic-input">Enter a topic to debate</label>
+          <input
+            id="topic-input"
+            type="text"
+            name="topic"
+            placeholder="Enter a topic, question, or idea to debate..."
+            maxlength="280"
+            required
+          />
+          <button type="submit" class="primary-button">Start Debate</button>
+        </form>
+        <p class="helper-text">
+          Dialectica will orchestrate a structured, evidence-based debate between two expert agents and deliver a judged
+          evaluation when the discussion ends.
+        </p>
+        <p id="error-message" class="error-message" role="alert" aria-live="assertive"></p>
+      </section>
+
+      <section id="debate-section" class="debate-section hidden" aria-live="polite">
+        <div class="section-heading">
+          <h2>Debate in Progress</h2>
+          <span id="debate-status" class="status-indicator hidden"></span>
+        </div>
+        <div id="turn-list" class="turn-list"></div>
+      </section>
+
+      <section id="evaluation-section" class="evaluation-section hidden" aria-live="polite">
+        <div class="section-heading">
+          <h2>Judge's Evaluation</h2>
+        </div>
+        <div id="evaluation-content" class="evaluation-content">
+          <article class="evaluation-item">
+            <h3>Strongest Pro Argument</h3>
+            <p id="evaluation-pro" class="evaluation-text"></p>
+          </article>
+          <article class="evaluation-item">
+            <h3>Strongest Con Argument</h3>
+            <p id="evaluation-con" class="evaluation-text"></p>
+          </article>
+          <article class="evaluation-item">
+            <h3>Unresolved Trade-offs</h3>
+            <p id="evaluation-tradeoffs" class="evaluation-text"></p>
+          </article>
+          <section id="evaluation-sources" class="evaluation-sources hidden">
+            <h4>All Sources Referenced</h4>
+            <ul id="evaluation-source-list"></ul>
+          </section>
+        </div>
+        <div class="evaluation-actions">
+          <button id="copy-evaluation" class="secondary-button" type="button">Copy Evaluation</button>
+          <button id="start-new-debate" class="primary-button" type="button">Start New Debate</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for deep understanding through structured dialogue.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
