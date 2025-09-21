@@ -53,6 +53,14 @@ function createServer() {
       return;
     }
 
+    if (req.method === "GET" && requestUrl.pathname === "/health") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({ status: "ok", timestamp: new Date().toISOString() })
+      );
+      return;
+    }
+
     serveStaticAsset(requestUrl, res);
   });
 }
@@ -654,6 +662,6 @@ async function callOpenAI({ apiKey, systemPrompt, userPrompt }) {
 
 const server = createServer();
 
-server.listen(PORT, () => {
-  console.log(`Dialectica server listening on http://localhost:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Dialectica server listening on http://0.0.0.0:${PORT}`);
 });
