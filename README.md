@@ -13,13 +13,43 @@ Dialectica is a lightweight MVP that orchestrates a structured debate between tw
 ## Prerequisites
 
 - [Node.js 18+](https://nodejs.org/) (for built-in `fetch` support).
-- A Google Gemini API key with access to the `gemini-2.5-flash-preview-05-20` model and web search grounding.
+- An OpenAI API key with access to GPT models.
+- A SerpAPI key for real-time web search results (get one at [serpapi.com](https://serpapi.com/)).
 
 ## Getting Started
 
 1. Clone the repository and navigate into the project directory.
-2. Set the `GOOGLE_API_KEY` environment variable with your Gemini API key.
-3. (Optional) Set `DIALECTICA_TURNS` to change the number of turns per agent (defaults to 3).
+2. Set up your environment variables using one of the methods below.
+3. Start the server:
+
+### Setting Environment Variables
+
+**Option 1: Create a .env file (Recommended)**
+```bash
+# Create .env file in the project root
+cat > .env << EOF
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-5-nano
+OPENAI_MAX_TOKENS=2000
+OPENAI_TEMPERATURE=0.7
+SERPAPI_KEY=your_serpapi_key_here
+PORT=3000
+DIALECTICA_TURNS=3
+EOF
+```
+
+**Option 2: Command line**
+```bash
+OPENAI_API_KEY=your_key_here node src/server.js
+```
+
+**Option 3: Export in your shell**
+```bash
+export OPENAI_API_KEY=your_key_here
+export OPENAI_MODEL=gpt-5-nano
+node src/server.js
+```
+
 4. Start the server:
 
 ```bash
@@ -32,11 +62,14 @@ The server streams debate events to the browser using Server-Sent Events (SSE), 
 
 ## Environment Variables
 
-| Variable | Description |
-| --- | --- |
-| `GOOGLE_API_KEY` | Required. Gemini API key used to call the debate and judge models. |
-| `DIALECTICA_TURNS` | Optional. Number of turns per agent (default is 3). |
-| `PORT` | Optional. HTTP port for the server (defaults to 3000). |
+| Variable | Description | Default |
+| --- | --- | --- |
+| `OPENAI_API_KEY` | Required. OpenAI API key used to call the debate and judge models. | - |
+| `OPENAI_MODEL` | Optional. OpenAI model to use for debates and judging. | `gpt-5-nano` |
+| `OPENAI_MAX_TOKENS` | Optional. Maximum tokens per response. | `2000` |
+| `OPENAI_TEMPERATURE` | Optional. Response randomness (0.0-2.0). | `0.7` |
+| `DIALECTICA_TURNS` | Optional. Number of turns per agent. | `3` |
+| `PORT` | Optional. HTTP port for the server. | `3000` |
 
 ## Project Structure
 
@@ -52,9 +85,11 @@ The server streams debate events to the browser using Server-Sent Events (SSE), 
 
 ## Notes
 
-- The application requires outbound network access to the Gemini API. Ensure the environment where you run the server permits HTTPS requests to `generativelanguage.googleapis.com`.
+- The application requires outbound network access to the OpenAI API. Ensure the environment where you run the server permits HTTPS requests to `api.openai.com`.
 - The debate agents expect to cite their sources using placeholders like `[S1]` that are automatically translated into global citation numbers for display and judging.
 - The judge prompt reuses the debate transcript and shared citation list to ensure all conclusions remain grounded in the debate's evidence.
+- You can use different OpenAI models by setting the `OPENAI_MODEL` environment variable (e.g., `gpt-5-nano`, `gpt-4`, `gpt-3.5-turbo`, etc.).
+- **Note**: `gpt-5-nano` may not be available in all regions or API accounts. If you encounter errors, try using `gpt-4o-mini` or `gpt-3.5-turbo` instead.
 
 ## License
 

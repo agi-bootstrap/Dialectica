@@ -109,14 +109,20 @@ body {
 }
 
 .secondary-button {
-  background: #eef2ff;
-  color: #312e81;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
 
-.primary-button:hover:not(:disabled),
-.secondary-button:hover {
+.primary-button:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+.secondary-button:hover {
+  transform: translateY(-1px);
+  background: #fee2e2;
+  box-shadow: 0 14px 28px rgba(220, 38, 38, 0.15);
 }
 
 .helper-text {
@@ -335,4 +341,26 @@ body {
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--text-secondary);
+}
+
+/* Streaming content styles */
+.debate-turn.streaming {
+  opacity: 0.8;
+  border-left: 3px solid var(--accent);
+}
+
+.streaming-content {
+  position: relative;
+}
+
+.streaming-content::after {
+  content: '▋';
+  color: var(--accent);
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
